@@ -1,0 +1,43 @@
+.page-wrapper{}
+/*calculator-wrapper*/
+.calc-wrapper{
+    margin: 0 auto;
+    width: 182px;
+    border: 1px solid red;
+    padding: 2px;
+}
+/*calculator-screen*/
+.calc-screen-wrapper{
+    padding-bottom: 5px;
+}
+.calc-screen{
+    width: 172px;
+}
+
+/*sign button wrapper*/
+.sign-button-wrapper{
+    vertical-align: top;
+    width: 120px;
+    display: inline-block;
+}
+.number-button{
+    margin: 2px;
+    width: 30px;
+}
+
+#sign_0{
+    width: 64px;
+}
+/*calculate button wrapper*/
+.calculate-button-wrapper{
+    vertical-align: top;
+    display: inline-block;
+    width: 62px;
+}
+.calculate-button{
+    width: 25px;
+    margin: 2px;
+}
+#sign_rusult{
+    width: 53px;
+}
