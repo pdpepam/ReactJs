@@ -8,17 +8,27 @@ var Calculator = React.createClass({
        'multiply':'+'
     },
 
+    startState:{
+        screen:0,
+        result:0,
+        numbButVal:0,
+        operand:'null'
+    },
+
     getNumbButVal: function(e){
         var numbValue = e.target.value;
         /**
             check state of numbButVal at 0
         */
-        if(this.state.numbButVal){
-            this.state.numbButVal = this.state.numbButVal+ numbValue;
-            this.setState({screen: this.state.numbButVal + numbValue});
+        if(this.state.result === 0){
+            this.setState({screen    : numbValue,
+                           result    :  numbValue
+            });
         }else{
-            this.state.numbButVal = numbValue;
-            this.setState({screen: numbValue})
+            var newNumbValue = this.state.result.toString() + numbValue;
+            this.setState({screen    :  newNumbValue,
+                           result    :  newNumbValue
+            });
         }
     },
 
@@ -26,16 +36,15 @@ var Calculator = React.createClass({
         var operandValue = e.target.value;
         this.state.operand = operandValue;
         this.setState({operand: operandValue});
-        console.log(this.state.operand)
     },
 
     getResult: function(e){
 
         this.getOpperandButVal(e);
 
-        var result     = this.state.result,
-            numbButVal = this.state.numbButVal,
-            operrand   = this.state.operand;
+        var result     = +this.state.result,
+            numbButVal = +this.state.numbButVal,
+            operrand   = +this.state.operand;
 
         switch (operrand){
             case '+':
@@ -73,27 +82,30 @@ var Calculator = React.createClass({
         }
     },
 
-    setStartValues: function(){
+    setReset: function(){
         this.setState(
-            { screen:0,
-              result:0,
-              numbButVal:0,
-              operand:'null'}
-        );
+            {screen:0,
+             result:0,
+             numbButVal:0,
+             operand:'null'})
     },
 
-    setReset: function(){
-        this.setStartValues();
+    backspace: function(){
+        var result = this.state.result,
+            length = result.length,
+            newLength = length-1,
+            newResult = result.substring(0,newLength);
+
+        this.setState(
+            { screen    : newResult,
+              result    : newResult,
+              numbButVal: newResult
+            })
     },
 
     /*React methods*/
     getInitialState: function() {
-        return {
-            screen:0,
-            result:0,
-            numbButVal:0,
-            operand:'null'
-        }
+        return this.startState;
     },
 
     render: function() {
@@ -111,10 +123,15 @@ var Calculator = React.createClass({
                             <button id="sign_comma" className="number-button" commaButValue=','>,</button>
                         </div>,
 
-                  resetButton = <button id="sign_rusult" className="calculate-button"   value='=' onClick={this.setReset}>reset</button>,
+                  resetButton = <button  value='=' className='func_but' onClick={this.setReset}>res</button>,
+
+                  backSpace = <button  value='=' className='func_but' onClick={this.backspace}>&#8592;</button>,
 
                   opperandButtons = <div className="calculate-button-wrapper">
-                                        {resetButton}
+                                        <div className="func-buttons-wrapper">
+                                             {resetButton}
+                                             {backSpace}
+                                        </div>
                                         <button id="sign_plus" className="calculate-button"  value='+' onClick={this.getResult}>+</button>
                                         <button id="sign_minus" className="calculate-button"  value='-' onClick={this.getResult} >-</button>
                                         <button id="sign_division" className="calculate-button"  value='/' onClick={this.getResult}>/</button>

@@ -28,6 +28,12 @@
 #sign_0{
     width: 64px;
 }
+/*func buttons*/
+.func_but{
+    width: 30px;
+    margin-left: 1px;
+}
+
 /*calculate button wrapper*/
 .calculate-button-wrapper{
     vertical-align: top;
@@ -35,9 +41,9 @@
     width: 62px;
 }
 .calculate-button{
-    width: 25px;
-    margin: 2px;
+    width: 29px;
+    margin: 1px;
 }
 #sign_rusult{
-    width: 53px;
+    width:60px;
 }
