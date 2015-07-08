@@ -10,8 +10,16 @@ var Calculator = React.createClass({
 
     getNumbButVal: function(e){
         var numbValue = e.target.value;
-        this.state.numbButVal =numbValue;
-        this.setState({screen: numbValue});
+        /**
+            check state of numbButVal at 0
+        */
+        if(this.state.numbButVal){
+            this.state.numbButVal = this.state.numbButVal+ numbValue;
+            this.setState({screen: this.state.numbButVal + numbValue});
+        }else{
+            this.state.numbButVal = numbValue;
+            this.setState({screen: numbValue})
+        }
     },
 
     getOpperandButVal: function(e){
@@ -65,11 +73,17 @@ var Calculator = React.createClass({
         }
     },
 
-    setReset: function(){
+    setStartValues: function(){
         this.setState(
-            {screen :0,
-            result :0}
+            { screen:0,
+              result:0,
+              numbButVal:0,
+              operand:'null'}
         );
+    },
+
+    setReset: function(){
+        this.setStartValues();
     },
 
     /*React methods*/
