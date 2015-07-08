@@ -3,15 +3,21 @@
 .calc-wrapper{
     margin: 0 auto;
     width: 182px;
-    border: 1px solid red;
     padding: 2px;
 }
+
+/*rigt panel*/
+.func-buttons-wrapper{
+    padding-top: 3px;
+}
+
 /*calculator-screen*/
 .calc-screen-wrapper{
     padding-bottom: 5px;
 }
 .calc-screen{
-    width: 172px;
+    width: 177px;
+    text-indent: 9px;
 }
 
 /*sign button wrapper*/

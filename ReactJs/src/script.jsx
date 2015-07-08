@@ -3,12 +3,12 @@ var Calculator = React.createClass({
     /*custome methods*/
     constant:{
        'plus':'+',
-       'minus':'+',
-       'devide':'+',
-       'multiply':'+'
+       'minus':'-',
+       'devide':'*',
+       'multiply':'/'
     },
 
-    startState:{
+    initialState:{
         screen:0,
         result:0,
         numbButVal:0,
@@ -22,72 +22,50 @@ var Calculator = React.createClass({
         */
         if(this.state.result === 0){
             this.setState({screen    : numbValue,
-                           result    :  numbValue
+                           result    : numbValue,
+                           numbButVal: numbValue
             });
         }else{
             var newNumbValue = this.state.result.toString() + numbValue;
             this.setState({screen    :  newNumbValue,
-                           result    :  newNumbValue
+                           result    :  newNumbValue,
+                           numbButVal:newNumbValue
             });
         }
     },
 
-    getOpperandButVal: function(e){
-        var operandValue = e.target.value;
-        this.state.operand = operandValue;
-        this.setState({operand: operandValue});
-    },
-
     getResult: function(e){
+        var operandValue = e.currentTarget.value;
+        this.setState({operand: operandValue});
 
-        this.getOpperandButVal(e);
+            var result     = +this.state.result,
+                numbButVal = +this.state.numbButVal,
+                operrand   = operandValue ;
 
-        var result     = +this.state.result,
-            numbButVal = +this.state.numbButVal,
-            operrand   = +this.state.operand;
+            switch (operrand){
+                case '+':
+                    if(this.state.result){
+                        this.setState({
+                            result:this.state.numbButVal,
+                            screen:this.state.numbButVal
+                        });
+                    }
 
-        switch (operrand){
-            case '+':
-                var newResult = result + numbButVal;
-                this.setState({
-                    result:+newResult,
-                    screen:newResult
-                });
-                break;
+                    if(!this.state.result){
+                        var newResult = +result +numbButVal;
+                        this.setState({
+                            result:newResult,
+                            screen:newResult
+                        });
+                        break;
+                    }
+            }
 
-            case '-':
-                var newResult = result - +numbButVal;
-                this.setState({
-                    result:newResult,
-                    screen:newResult
-                });
-                break;
 
-            case '/':
-                var newResult = result / numbButVal;
-                this.setState({
-                    result:newResult,
-                    screen:newResult
-                });
-                break;
-
-            case '*':
-                var newResult = result * numbButVal;
-                this.setState({
-                    result:newResult,
-                    screen:newResult
-                });
-                break;
-
-        }
     },
 
     setReset: function(){
-        this.setState(
-            {screen:0,
-             result:0,
-             numbButVal:0,
-             operand:'null'})
+        this.setState(this.initialState)
     },
 
     backspace: function(){
@@ -97,15 +75,16 @@ var Calculator = React.createClass({
             newResult = result.substring(0,newLength);
 
         this.setState(
-            { screen    : newResult,
+             {screen    : newResult,
               result    : newResult,
               numbButVal: newResult
-            })
+             })
     },
 
     /*React methods*/
+
     getInitialState: function() {
-        return this.startState;
+        return this.initialState;
     },
 
     render: function() {
